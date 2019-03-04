@@ -32,5 +32,5 @@ var Config = struct {
 
 func init() {
 	godotenv.Load()
-	configor.Load(&config)
+	configor.Load(&Config)
 }

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"example.com/routers"
+	"github.com/goalong/bingo/routers"
 )
 
 func main() {
 	router := routers.InitRouter()
-	router.Run()
+	router.Run(":8000")
 }

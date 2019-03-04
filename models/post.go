@@ -11,7 +11,21 @@ type Post struct {
 }
 
 func GetPosts(page int, pageSize int, filters map[string]interface{}) (posts []Post) {
-	db.Where(filters).Offset((page - 1)*pageSize).Limit(pageSize).Find(&posts)
+	db.Model(&Post{}).Where(filters).Offset((page - 1)*pageSize).Limit(pageSize).Find(&posts)
 	return
+}
+
+func CreatePost(post Post) (err error) {
+	result := db.Create(&post)
+	if result.Error != nil {
+		err = result.Error
+		return
+	}
+	return
+}
+
+func EditPost(id int, data interface{}) bool {
+	db.Model(&Post{}).Where("id = ?", id).Update(data)
+	return true
 
 }

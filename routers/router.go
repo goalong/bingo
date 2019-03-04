@@ -8,5 +8,8 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Recovery())
 	gin.SetMode("debug") // todo
 	r.GET("/posts", GetPosts)
+	r.POST("post", AddPost)
+	r.PUT("/post/:id", EditPost)
+
 	return r
 }
