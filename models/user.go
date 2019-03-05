@@ -15,6 +15,7 @@ type User struct {
 	AvatarHash string `json:"avatar_hast"`
 }
 
+
 func CreateUser(user User) bool {
 	result := db.Create(&user)
 	if result.Error != nil {
@@ -22,5 +23,13 @@ func CreateUser(user User) bool {
 		return false
 	}
 	return true
+
+}
+
+
+func GetUser(filter interface{}) (User) {
+	var user User
+	db.Where(filter).First(&user)
+	return user
 
 }

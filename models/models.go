@@ -18,10 +18,10 @@ var (
 func init() {
 	var err error
 	// mysql conn
-	conf := conf.Config
+	config := conf.Config
 
-	db, err = gorm.Open("mysql", conf.DB.User+":"+conf.DB.Password+
-		"@tcp("+conf.DB.Host+":"+conf.DB.Port+")/"+conf.DB.Name+
+	db, err = gorm.Open("mysql", config.DB.User+":"+config.DB.Password+
+		"@tcp("+config.DB.Host+":"+config.DB.Port+")/"+config.DB.Name+
 		"?charset=utf8mb4&parseTime=True&loc=Local&timeout=90s")
 	if err != nil {
 		log.Fatal("connect db fail")
@@ -31,7 +31,7 @@ func init() {
 
 
 	// gorm debug log
-	if conf.APP.Debug {
+	if config.APP.Debug {
 		db.LogMode(true)
 	}
 }

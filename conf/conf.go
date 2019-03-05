@@ -12,6 +12,7 @@ var Config = struct {
 		Port     string `default:"8000"`
 		PageSize int    `default:"10"`
 		BaseURL  string `default:"https://api.example.com/"`
+		JwtSecret string `default:"087047$086092"`
 	}
 
 	DB struct {
