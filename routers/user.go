@@ -5,10 +5,32 @@ import (
 	"github.com/goalong/bingo/models"
 	myError "github.com/goalong/bingo/err"
 	"github.com/goalong/bingo/utils"
+	"time"
 )
 
 func UserRegister(c *gin.Context) {
+	var user models.User
+	code := myError.SUCCESS
+	err := c.BindJSON(&user)
+	if err != nil {
+		code = myError.INVALID_PARAMS
+	}
+	filter := make(map[string]interface{})
+	filter["email"] = user.Email
+	u := models.GetUser(filter)
+	if u.ID > 0 {
+		code = myError.EMAIL_EXISTS
+	} else {
+		user.MemberSince = time.Now().Format("2006-01-02 15:04:26")
+		models.CreateUser(user)
+	}
 
+	c.JSON(
+		200,
+		gin.H{
+			"code": code,
+			"msg": myError.GetMsg(code),
+		})
 }
 
 

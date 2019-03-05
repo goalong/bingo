@@ -11,6 +11,8 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Recovery())
 	gin.SetMode("debug") // todo
 	r.POST("/login", Login)
+	r.POST("/register", UserRegister)
+
 
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(utils.CheckToken())
@@ -20,7 +22,7 @@ func InitRouter() *gin.Engine {
 	apiv1.POST("post", AddPost)
 	apiv1.PUT("/post/:id", EditPost)
 	apiv1.DELETE("/post/:id", DeletePost)
-	apiv1.POST("/register", UserRegister)
+
 
 
 	return r

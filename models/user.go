@@ -12,7 +12,7 @@ type User struct {
 	Location string `json:"location"`
 	Bio string `json:"bio"`
 	MemberSince string `json:"member_since"`
-	AvatarHash string `json:"avatar_hast"`
+	AvatarHash string `json:"avatar_hash"`
 }
 
 

@@ -9,6 +9,7 @@ const (
 
 	UserNotFound = 1101
 	EMAIL_OR_PW_WRONG = 1102
+	EMAIL_EXISTS = 1103
 
 	SignTokenError = 1201
 	CHECK_TOKEN_FAILED = 1202
@@ -32,6 +33,7 @@ var MsgFlags = map[int]string {
 	EMAIL_OR_PW_WRONG: "邮箱不存在或者密码错误",
 	CONTEXT_GET_USER_ERROR: "上下文错误",
 	PERMISSION_DENIED: "权限不足",
+	EMAIL_EXISTS: "邮箱已注册",
 }
 
 func GetMsg(code int) string {
