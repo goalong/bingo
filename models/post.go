@@ -15,6 +15,11 @@ func GetPosts(page int, pageSize int, filters map[string]interface{}) (posts []P
 	return
 }
 
+func GetPost(id int) (post Post){
+	db.First(&post, id)
+	return post
+}
+
 func CreatePost(post Post) (err error) {
 	result := db.Create(&post)
 	if result.Error != nil {
@@ -28,4 +33,19 @@ func EditPost(id int, data interface{}) bool {
 	db.Model(&Post{}).Where("id = ?", id).Update(data)
 	return true
 
+}
+
+
+func DeletePost(id int) bool {
+	db.Where("id = ?", id).Delete(Post{})
+	return true
+}
+
+func IsPostExist(id int) bool {
+	var post Post
+	db.First(&post, id)
+	if post.Id > 0 {
+		return true
+	}
+	return false
 }

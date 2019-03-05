@@ -30,10 +30,26 @@ func GetPosts(c *gin.Context) {
 
 }
 
+func GetPost(c *gin.Context) {
+	id := com.StrTo(c.Param("id")).MustInt()
+	post := models.GetPost(id)
+	code := myError.SUCCESS
+	if post.Id < 1 {
+		code = myError.PostNotFound
+	}
+	c.JSON(200, gin.H{
+		"code": code,
+		"msg": myError.GetMsg(code),
+		"data": post,
+	})
+
+
+}
+
 //新建post
 func AddPost(c *gin.Context) {
 	var post models.Post
-	err := c.BindJSON(&post)
+	err := c.BindJSON(&post) // json的解析
 	statusCode := 200
 	code := myError.SUCCESS
 	if err != nil {
@@ -48,7 +64,7 @@ func AddPost(c *gin.Context) {
 
 	c.JSON(statusCode, gin.H{
 		"code": code,
-		"msg": "", //todo
+		"msg": myError.GetMsg(code),
 	})
 }
 
@@ -66,8 +82,24 @@ func EditPost(c *gin.Context) {
 	models.EditPost(id, post)
 	c.JSON(statusCode, gin.H{
 		"code": code,
-		"msg": "", //todo
+		"msg": myError.GetMsg(code), //todo
 	})
 
+}
+
+
+func DeletePost(c *gin.Context) {
+	code := myError.SUCCESS
+	id := com.StrTo(c.Param("id")).MustInt()
+	isExist := models.IsPostExist(id)
+	if !isExist {
+		code = myError.PostNotFound
+	} else {
+		models.DeletePost(id)
+	}
+	c.JSON(200, gin.H{
+		"code": code,
+		"msg": myError.GetMsg(code),
+	})
 }
 
